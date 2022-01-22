@@ -88,3 +88,37 @@ formDOM.addEventListener("submit", async (e) => {
     formAlertDOM.classList.remove("text-success");
   }, 3000);
 });
+const child = document.createElement("div");
+child.innerHTML = `<button class="clickMe">click me</button>`;
+document.body.appendChild(child);
+document.querySelector(".clickMe").addEventListener("click", () => {
+  saveToDB();
+});
+const saveToDB = async () => {
+  let name = "255.255.255.255";
+  let network_name = "QQQQQQQQQQ";
+  for (let i = 0; i < 2; i++) {
+    try {
+      await axios.post("/api/v1/networks", { name, network_name });
+      showNetworks();
+      taskInputDOM.value = "";
+      formAlertDOM.style.display = "block";
+      formAlertDOM.textContent = `success, task added`;
+      formAlertDOM.classList.add("text-success");
+    } catch (error) {
+      formAlertDOM.style.display = "block";
+      formAlertDOM.innerHTML = `error, please try again`;
+    }
+  }
+  // try {
+  //   await axios.post("/api/v1/networks", { name, network_name });
+  //   showNetworks();
+  //   taskInputDOM.value = "";
+  //   formAlertDOM.style.display = "block";
+  //   formAlertDOM.textContent = `success, task added`;
+  //   formAlertDOM.classList.add("text-success");
+  // } catch (error) {
+  //   formAlertDOM.style.display = "block";
+  //   formAlertDOM.innerHTML = `error, please try again`;
+  // }
+};
