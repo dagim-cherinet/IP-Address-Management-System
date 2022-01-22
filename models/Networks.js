@@ -64,4 +64,4 @@ const NetworkSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Networks", NetworkSchema);
+module.exports = mongoose.model("network", NetworkSchema);

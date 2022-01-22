@@ -1,8 +1,8 @@
-const taskIDDOM = document.querySelector(".task-edit-id");
-const taskNameDOM = document.querySelector(".task-edit-name");
-const taskCompletedDOM = document.querySelector(".task-edit-completed");
-const editFormDOM = document.querySelector(".single-task-form");
-const editBtnDOM = document.querySelector(".task-edit-btn");
+const networkIDDOM = document.querySelector(".network-edit-id");
+const networkNameDOM = document.querySelector(".network-edit-name");
+const networkCompletedDOM = document.querySelector(".network-edit-completed");
+const editFormDOM = document.querySelector(".single-network-form");
+const editBtnDOM = document.querySelector(".network-edit-btn");
 const formAlertDOM = document.querySelector(".form-alert");
 const params = window.location.search;
 const id = new URLSearchParams(params).get("id");
@@ -15,11 +15,11 @@ const showNetwork = async () => {
     } = await axios.get(`/api/v1/networks/${id}`);
     const { _id: networkID, completed, name } = network;
 
-    taskIDDOM.textContent = networkID;
-    taskNameDOM.value = name;
+    networkIDDOM.textContent = networkID;
+    networkNameDOM.value = name;
     tempName = name;
     if (completed) {
-      taskCompletedDOM.checked = true;
+      networkCompletedDOM.checked = true;
     }
   } catch (error) {
     console.log(error);
@@ -32,23 +32,23 @@ editFormDOM.addEventListener("submit", async (e) => {
   editBtnDOM.textContent = "Loading...";
   e.preventDefault();
   try {
-    const taskName = taskNameDOM.value;
-    const taskCompleted = taskCompletedDOM.checked;
+    const networkName = networkNameDOM.value;
+    const networkCompleted = networkCompletedDOM.checked;
 
     const {
       data: { network },
     } = await axios.patch(`/api/v1/networks/${id}`, {
-      name: taskName,
-      completed: taskCompleted,
+      name: networkName,
+      completed: networkCompleted,
     });
 
     const { _id: networkID, completed, name } = network;
 
-    taskIDDOM.textContent = networkID;
-    taskNameDOM.value = name;
+    networkIDDOM.textContent = networkID;
+    networkNameDOM.value = name;
     tempName = name;
     if (completed) {
-      taskCompletedDOM.checked = true;
+      networkCompletedDOM.checked = true;
     }
     formAlertDOM.style.display = "block";
     formAlertDOM.textContent = `success, edited task`;
@@ -56,7 +56,7 @@ editFormDOM.addEventListener("submit", async (e) => {
   } catch (error) {
     console.log(error);
     console.error(error);
-    taskNameDOM.value = tempName;
+    networkNameDOM.value = tempName;
     formAlertDOM.style.display = "block";
     formAlertDOM.innerHTML = `error, please try again`;
   }
