@@ -707,105 +707,22 @@ function updateResults() {
     </div>
     </div>`;
     container__for__results.appendChild(output__results);
-    // $(
-    //   '<div class="net_details_box" id="details_box_' + c + '"></div>'
-    // ).appendTo("#result" + c);
-    // $('<div class="net_details_header">Network Details</div>').appendTo(
-    //   "#details_box_" + c
-    // );
-    // $(
-    //   '<div class="net_details_row"><span class="net_details_label">Network Address:</span> ' +
-    //     results[c][2] +
-    //     "</div>"
-    // ).appendTo("#details_box_" + c);
-    // $(
-    //   '<div class="net_details_row"><span class="net_details_label">Subnet Mask:</span> ' +
-    //     getFullMask(results[c][3]) +
-    //     " (" +
-    //     results[c][3] +
-    //     " Bits)</div>"
-    // ).appendTo("#details_box_" + c);
-    // $(
-    //   '<div class="net_details_row"><span class="net_details_label"># of Usable Hosts:</span> ' +
-    //     usableHosts.toLocaleString() +
-    //     "</div>"
-    // ).appendTo("#details_box_" + c);
-    // $(
-    //   '<div class="net_details_row"><span class="net_details_label"># of Hosts Wasted:</span> ' +
-    //     thisWasted.toLocaleString() +
-    //     " (" +
-    //     wastedPercent +
-    //     "%)</div>"
-    // ).appendTo("#details_box_" + c);
-    // $(
-    //   '<div class="net_details_row"><span class="net_details_label">First Host Address:</span> ' +
-    //     firstHost +
-    //     "</div>"
-    // ).appendTo("#details_box_" + c);
-    // $(
-    //   '<div class="net_details_row"><span class="net_details_label">Last Host Address:</span> ' +
-    //     lastHost +
-    //     "</div>"
-    // ).appendTo("#details_box_" + c);
-    // $(
-    //   '<div class="net_details_row"><span class="net_details_label">Broadcast Address:</span> ' +
-    //     broadcast +
-    //     "</div>"
-    // ).appendTo("#details_box_" + c);
-    //Hide it by default
-    // $("#details_box_" + c).hide();
   }
   console.log(results);
   console.log(api_network_detail);
-  //Set the behavior of the plus/minus signs so that they will expand/collapse the network info.
-  // $(".results_field_4").each(function (index) {
-  //   if (index > 0) {
-  //     //Don't bind an event to the first field because it's in the header
-  //     //Set the click event
-  //     $(this).bind("click", function () {
-  //       $("#details_box_" + (index - 1)).slideToggle(600);
-  //       //Toggle the +/-
-  //       if ($("#results_expand_" + (index - 1)).text() == "-") {
-  //         $("#results_expand_" + (index - 1)).text("+");
-  //         $("#results_expand_" + (index - 1)).attr(
-  //           "title",
-  //           "Click To View The Details For This Network"
-  //         );
-  //       } else {
-  //         $("#results_expand_" + (index - 1)).text("-");
-  //         $("#results_expand_" + (index - 1)).attr(
-  //           "title",
-  //           "Click To Hide The Details For This Network"
-  //         );
-  //       }
-  //     });
-  //   }
-  // });
 
-  // //Unveil the results
-  // if (fancyResults) {
-  //   //Display Lightbox black background
-  //   $("#lightbox_background").show(200);
-  //   //Scroll to the top of the page
-  //   $("html, body").animate({ scrollTop: 0 }, "slow");
-  //   //Create Close Button and create click event for the close button to close the results window
-  //   $(
-  //     '<div id="results_close_button" title="Close Results Window">X</div>'
-  //   ).appendTo($("#results_header"));
-  //   $("#results_close_button").click(function () {
-  //     $(".results").css("opacity", 0);
-  //     $("#lightbox_background").hide(500);
-  //   });
-  //   //Display Results
-  //   $(".results").attr("id", "results_fancy").animate({ opacity: 1 }, 800);
-  // } else {
-  //   $(".results").animate({ opacity: 1 }, 1200).css("height", "auto");
-  // }
-
-  //Change button text to "Re-Calculate"
   // $("#calculate").attr("value", "Re-Calculate");
   document.getElementById("calculate").innerText = "Re-Calculate";
+  //creating a button to save the results to the database
+  let save_container = document.createElement("div");
+  save_container.setAttribute("class", "save_container");
+  save_container.innerHTML = `<button class ="btn save_to_database" onclick = "save_to_database()">Save to Database</button>`;
+  container__for__results.appendChild(save_container);
 }
 document.getElementById("calculate").addEventListener("click", () => {
   calculateVLSM();
 });
+
+const save_to_database = () => {
+  console.log("saving tho the mongodb database");
+};

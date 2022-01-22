@@ -241,3 +241,8 @@ input[type="number"] {
 .net_details_label {
   background-color: white;
 }
+.save_container {
+  margin: 2rem;
+  display: flex;
+  justify-content: center;
+}

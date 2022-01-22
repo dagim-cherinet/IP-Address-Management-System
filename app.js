@@ -9,7 +9,7 @@ const errorHandlerMiddleware = require("./middleware/error-handler");
 
 // middleware
 app.use(cors());
-app.use(express.static("./public"));
+app.use(express.static("./publicVLSM"));
 app.use(express.json());
 
 // routes
