@@ -608,7 +608,7 @@ function updateResults() {
   results__header.innerHTML = `<div class="calculation__result"><h2 class="result_header">Calculation Results</h2><button class=" btn__back" onclick = "back__page()">Back/Re-calculate</button></div>`;
   resultDiv.appendChild(results__header);
   sub__header.setAttribute("id", "sub__header");
-  sub__header.innerHTML = `<h3>using ${usedHosts.toLocaleString()} addresses out of ${availableAddresses.toLocaleString()} (${getPercent(
+  sub__header.innerHTML = `<h3>Using ${usedHosts.toLocaleString()} addresses out of ${availableAddresses.toLocaleString()} (${getPercent(
     usedHosts,
     availableAddresses
   )}%). ${wasted.toLocaleString()} addresses were wasted in the VLSM process</h3>`;
@@ -620,7 +620,7 @@ function updateResults() {
   //Create the field headers
   let field__header = document.createElement("div");
   field__header.setAttribute("id", "field_header");
-  field__header.innerHTML = `<div class = "results_field_1">Name</div><div class="results_field_2"># of Hosts</div><div class="results_field_3">Network Address/Mask</div><div class="results_field_4">&nbsp;</div>`;
+  field__header.innerHTML = `<div class = "results_field_1">Name</div><div class="results_field_2"># of Hosts</div><div class="results_field_3">Network Address/Mask</div><div class="results_field_4"></div>`;
   resultDiv.appendChild(field__header);
   //  $("<div id=\"results_field_header_row\"><div class=\"results_field_1\">Name</div><div class=\"results_field_2\"># of Hosts</div><div class=\"results_field_3\">Network Address/Mask</div><div class=\"results_field_4\">&nbsp;</div></div>").appendTo($(".results"));
   let container__for__results = document.createElement("div");
@@ -637,7 +637,7 @@ function updateResults() {
       c
     ][1].toLocaleString()}</div><div class="results_field_3">${results[c][2]}/${
       results[c][3]
-    }</div><div class="results_field_4 see__more"><button class="btn-plus" onclick ="show_detail()"><span class ="plus">+</span><span class = "minus hide">-</span></button></div>`;
+    }</div><div class="results_field_4 see__more"><button class="btn-plus" onclick ="show_detail()"><span class ="plus">+</span><span class = "minus hide">-</span></button>&nbsp; &nbsp;</div>`;
     container__for__results.appendChild(each__result);
     // let each__result = document.createElement('div');
     //each__result.setAttribute("class", "results_row");
@@ -722,6 +722,7 @@ function updateResults() {
   container__for__results.appendChild(save_container);
 }
 document.getElementById("calculate").addEventListener("click", () => {
+  document.querySelector(".resultDiv").classList.toggle("hide");
   calculateVLSM();
 });
 
@@ -736,4 +737,6 @@ const show_detail = () => {
 const back__page = () => {
   document.body.classList.toggle("resultDiv_show");
   document.querySelector(".resultDiv").innerHTML = "";
+  //
+  document.querySelector(".resultDiv").classList.toggle("hide");
 };

@@ -220,27 +220,36 @@ input[type="number"] {
   flex-direction: column;
 }
 #each__result {
+  background-color: var(--primary-700);
+  color: white;
   font-size: 1.5rem;
   display: flex;
   justify-content: space-evenly;
 }
 #field_header {
+  color: white;
   font-size: 1.5rem;
   display: flex;
   justify-content: space-evenly;
 }
-.alternate_rows {
-  background-color: #ccc;
+#sub__header {
+  color: white;
 }
+
 .net_details_header {
+  color: white;
+  background-color: var(--primary-600);
   font-size: 1.3rem;
 }
 .net_detail_box {
   background-color: #837dff;
 }
+.net_details_container {
+  padding: 1rem 0;
+}
 .net_details_row {
   display: flex;
-
+  padding: 0 1rem;
   background-color: white;
 }
 .net_details_label {
@@ -271,8 +280,8 @@ input[type="number"] {
 
   left: 0;
   right: 0;
-  background: black;
-  color: green;
+  background: var(--primary-900);
+  color: var(--primary-900);
   z-index: 100;
   transform: translateX(100%);
   transition: transform 300ms cubic-bezier(0.5, 0, 0.5, 1);
@@ -281,11 +290,15 @@ input[type="number"] {
   transform: translateX(0%);
 }
 .resultDiv {
-  width: 70%;
+  padding: 1rem 3rem;
+  width: 60%;
 }
 .calculation__result {
+  color: white;
+  position: sticky;
+  top: 0;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 .btn__back {
