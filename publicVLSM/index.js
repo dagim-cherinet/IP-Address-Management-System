@@ -589,6 +589,7 @@ function calculateVLSM() {
   }
 
   //Display the results
+  document.body.classList.add("resultDiv_show");
   updateResults();
 }
 //global variable for api
@@ -599,14 +600,12 @@ function updateResults() {
   //Clear any values and styles in the box before continuing in case the user decides to recalculate the results.
   const resultDiv = document.getElementById("resultDiv");
   resultDiv.innerHTML = "";
-  //$(".results").html("");
-  //$(".results").removeAttr("style");
 
   //Create the results header
   let results__header = document.createElement("div");
   let sub__header = document.createElement("div");
   results__header.setAttribute("id", "results__header");
-  results__header.innerHTML = `<h2>Calculation Results</h2>`;
+  results__header.innerHTML = `<div class="calculation__result"><h2 class="result_header">Calculation Results</h2><button class=" btn__back" onclick = "back__page()">Back/Re-calculate</button></div>`;
   resultDiv.appendChild(results__header);
   sub__header.setAttribute("id", "sub__header");
   sub__header.innerHTML = `<h3>using ${usedHosts.toLocaleString()} addresses out of ${availableAddresses.toLocaleString()} (${getPercent(
@@ -638,7 +637,7 @@ function updateResults() {
       c
     ][1].toLocaleString()}</div><div class="results_field_3">${results[c][2]}/${
       results[c][3]
-    }</div><div class="results_field_4 see__more">+</div>`;
+    }</div><div class="results_field_4 see__more"><button class="btn-plus" onclick ="show_detail()"><span class ="plus">+</span><span class = "minus hide">-</span></button></div>`;
     container__for__results.appendChild(each__result);
     // let each__result = document.createElement('div');
     //each__result.setAttribute("class", "results_row");
@@ -647,7 +646,9 @@ function updateResults() {
     //Color the background of each result alternately
 
     if (!(c % 2)) {
-      document.getElementById("each__result").classList.add("alternate_rows");
+      document
+        .getElementById("each__result")
+        .classList.toggle("alternate_rows");
       //	$("#result" + c).css("background-color","#FFFFFF");
     }
     //Create the network details box which will be hidden until the plus sign (+) is clicked.
@@ -680,6 +681,7 @@ function updateResults() {
     api_network_detail.push(final__result);
     let output__results = document.createElement("div");
     output__results.setAttribute("class", "net_detail_box");
+    output__results.setAttribute("class", "hide_detail");
     output__results.setAttribute("id", "net_detail_box");
     output__results.innerHTML = `<div class="net_details_header">Network Details</div>
     <div class="net_details_container">
@@ -725,4 +727,13 @@ document.getElementById("calculate").addEventListener("click", () => {
 
 const save_to_database = () => {
   console.log("saving tho the mongodb database");
+};
+const show_detail = () => {
+  document.querySelector("#net_detail_box").classList.toggle("hide_detail");
+  document.querySelector(".plus").classList.toggle("hide");
+  document.querySelector(".minus").classList.toggle("hide");
+};
+const back__page = () => {
+  document.body.classList.toggle("resultDiv_show");
+  document.querySelector(".resultDiv").innerHTML = "";
 };
