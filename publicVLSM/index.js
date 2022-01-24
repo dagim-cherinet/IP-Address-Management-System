@@ -605,7 +605,7 @@ function updateResults() {
   let results__header = document.createElement("div");
   let sub__header = document.createElement("div");
   results__header.setAttribute("id", "results__header");
-  results__header.innerHTML = `<div class="calculation__result"><h2 class="result_header">Calculation Results</h2><button class=" btn__back" onclick = "back__page()">Back/Re-calculate</button></div>`;
+  results__header.innerHTML = `<div class="calculation__result"><h2 class="result_header">Calculation Results</h2><button class=" btn" onclick = "back__page()">Back/Re-calculate</button></div>`;
   resultDiv.appendChild(results__header);
   sub__header.setAttribute("id", "sub__header");
   sub__header.innerHTML = `<h3>Using ${usedHosts.toLocaleString()} addresses out of ${availableAddresses.toLocaleString()} (${getPercent(
@@ -637,7 +637,7 @@ function updateResults() {
       c
     ][1].toLocaleString()}</div><div class="results_field_3">${results[c][2]}/${
       results[c][3]
-    }</div><div class="results_field_4 see__more"><button class="btn-plus" onclick ="show_detail()"><span class ="plus">+</span><span class = "minus hide">-</span></button>&nbsp; &nbsp;</div>`;
+    }</div><div class="results_field_4 see__more"><button class="btn-plus" onclick ="show_detail()"><span class ="plus">+</span><span class = "minus hide">-</span></button>&nbsp;</div>`;
     container__for__results.appendChild(each__result);
     // let each__result = document.createElement('div');
     //each__result.setAttribute("class", "results_row");
@@ -718,7 +718,9 @@ function updateResults() {
   //creating a button to save the results to the database
   let save_container = document.createElement("div");
   save_container.setAttribute("class", "save_container");
-  save_container.innerHTML = `<button class ="btn save_to_database" onclick = "save_to_database()">Save to Database</button>`;
+  save_container.innerHTML = `<button class ="btn save_to_database" onclick = "saveToDB1()">Save to Database</button> <a href="index2.html"
+              ><button class="btn">saved Networks</button></a
+            >`;
   container__for__results.appendChild(save_container);
 }
 document.getElementById("calculate").addEventListener("click", () => {
@@ -726,9 +728,6 @@ document.getElementById("calculate").addEventListener("click", () => {
   calculateVLSM();
 });
 
-const save_to_database = () => {
-  console.log("saving tho the mongodb database");
-};
 const show_detail = () => {
   document.querySelector("#net_detail_box").classList.toggle("hide_detail");
   document.querySelector(".plus").classList.toggle("hide");
@@ -739,4 +738,49 @@ const back__page = () => {
   document.querySelector(".resultDiv").innerHTML = "";
   //
   document.querySelector(".resultDiv").classList.toggle("hide");
+};
+const save_to_database = () => {
+  console.log("saving to the mongodb database");
+  console.log(api_network_detail);
+  saveToDB1();
+};
+const saveToDB1 = async () => {
+  // let name = "255.255.255.255";
+  // let network_name = "QQQQQQQQQQ";
+  for (let i = 0; i < api_network_detail.length; i++) {
+    let {
+      network_name,
+      network_address,
+      subnet_mask,
+      number_of_allocated_IP,
+      number_of_usable_hosts,
+      number_of_hosts_wasted,
+      first_host_address,
+      last_host_address,
+      broadcast_address,
+    } = api_network_detail[i];
+
+    try {
+      await axios.post("/api/v1/networks", {
+        network_name,
+        network_address,
+        subnet_mask,
+        number_of_allocated_IP,
+        number_of_usable_hosts,
+        number_of_hosts_wasted,
+        first_host_address,
+        last_host_address,
+        broadcast_address,
+      });
+      // showNetworks();
+      // // taskInputDOM.value = "";
+      // formAlertDOM.style.display = "block";
+      // formAlertDOM.textContent = `success, task added`;
+      // formAlertDOM.classList.add("text-success");
+    } catch (error) {
+      console.log(error);
+      // formAlertDOM.style.display = "block";
+      // formAlertDOM.innerHTML = `error, please try again`;
+    }
+  }
 };
