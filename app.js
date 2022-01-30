@@ -14,7 +14,7 @@ app.use(express.json());
 
 // routes
 
-app.use("/api/v1/networks", networks);
+app.use("/api", networks);
 
 app.use(notFound);
 app.use(errorHandlerMiddleware);

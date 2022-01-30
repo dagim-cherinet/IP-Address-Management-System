@@ -28,7 +28,7 @@ const showNetworks = async () => {
 
 
 <!-- edit link -->
-<a href="network.html?id=${networkID}"  class="edit-link">
+<a href="edit_network.html?id=${networkID}"  class="edit-link">
 <i class="fas fa-edit"></i>edit
 </a>
 <!-- delete btn -->
@@ -89,12 +89,13 @@ networksDOM.addEventListener("click", async (e) => {
 //     formAlertDOM.classList.remove("text-success");
 //   }, 3000);
 // });
-const child = document.createElement("div");
-child.innerHTML = `<button class="clickMe">click me</button>`;
-document.body.appendChild(child);
-document.querySelector(".clickMe").addEventListener("click", () => {
-  saveToDB();
-});
+// there was a button to add a network using for loop
+// const child = document.createElement("div");
+// child.innerHTML = `<button class="clickMe">click me</button>`;
+// document.body.appendChild(child);
+// document.querySelector(".clickMe").addEventListener("click", () => {
+//   saveToDB();
+// });
 const saveToDB = async () => {
   let network_address = "its working";
   let network_name = "QQQQQQQQQQ";

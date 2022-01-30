@@ -1,20 +1,20 @@
-const Network = require("../models/Networks");
+const { NewNetwork, User } = require("../models/Networks");
 const asyncWrapper = require("../middleware/async");
 const { createCustomError } = require("../errors/custom-error");
 const getAllNetworks = asyncWrapper(async (req, res) => {
-  const networks = await Network.find({});
+  const networks = await NewNetwork.find({});
   res.status(200).json({ networks });
 });
 
 const createNetwork = asyncWrapper(async (req, res) => {
-  const networks = await Network.create(req.body);
+  const networks = await NewNetwork.create(req.body);
 
   res.status(201).json({ networks });
 });
 
 const getNetwork = asyncWrapper(async (req, res, next) => {
   const { id: networkID } = req.params;
-  const network = await Network.findOne({ _id: networkID });
+  const network = await NewNetwork.findOne({ _id: networkID });
   if (!network) {
     return next(createCustomError(`No Network with id : ${networkID}`, 404));
   }
@@ -23,7 +23,7 @@ const getNetwork = asyncWrapper(async (req, res, next) => {
 });
 const deleteNetwork = asyncWrapper(async (req, res, next) => {
   const { id: networkID } = req.params;
-  const network = await Network.findOneAndDelete({ _id: networkID });
+  const network = await NewNetwork.findOneAndDelete({ _id: networkID });
   if (!network) {
     return next(createCustomError(`No Network with id : ${networkID}`, 404));
   }
@@ -32,9 +32,13 @@ const deleteNetwork = asyncWrapper(async (req, res, next) => {
 const updateNetwork = asyncWrapper(async (req, res, next) => {
   const { id: networkID } = req.params;
 
-  const network = await Network.findOneAndUpdate({ _id: networkID }, req.body, {
-    new: true,
-  });
+  const network = await NewNetwork.findOneAndUpdate(
+    { _id: networkID },
+    req.body,
+    {
+      new: true,
+    }
+  );
 
   if (!network) {
     return next(createCustomError(`No task with id : ${networkID}`, 404));

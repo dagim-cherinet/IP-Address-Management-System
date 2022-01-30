@@ -747,6 +747,7 @@ const save_to_database = () => {
 const saveToDB1 = async () => {
   // let name = "255.255.255.255";
   // let network_name = "QQQQQQQQQQ";
+  let token = localStorage.getItem("token");
   for (let i = 0; i < api_network_detail.length; i++) {
     let {
       network_name,
@@ -761,7 +762,8 @@ const saveToDB1 = async () => {
     } = api_network_detail[i];
 
     try {
-      await axios.post("/api/v1/networks", {
+      const response = await axios.post("/api/user-specific-netowrk", {
+        token,
         network_name,
         network_address,
         subnet_mask,
@@ -772,6 +774,14 @@ const saveToDB1 = async () => {
         last_host_address,
         broadcast_address,
       });
+      const result = await response.json();
+      console.log(result);
+      if (!result.error) {
+        //show_result();
+        alert("Success sub-networks are added");
+      } else {
+        alert(result.error);
+      }
       // showNetworks();
       // // taskInputDOM.value = "";
       // formAlertDOM.style.display = "block";

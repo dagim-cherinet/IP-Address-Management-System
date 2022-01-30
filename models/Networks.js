@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 
 const NetworkSchema = new mongoose.Schema({
+  userID: {
+    type: String,
+  },
   network_name: {
     type: String,
     default: "no name",
@@ -48,5 +51,19 @@ const NetworkSchema = new mongoose.Schema({
     trim: true,
   },
 });
+const userSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+});
+const NewNetwork = mongoose.model("NewNetwork", NetworkSchema);
+const User = mongoose.model("User", userSchema);
+module.exports = { User, NewNetwork };
 
-module.exports = mongoose.model("network", NetworkSchema);
+// module.exports = mongoose.model("network", NetworkSchema);
